@@ -1,2 +1,2 @@
 # Lab-Computer-Vision
-Laboratory of Computer Vision - Univeristy of Padua 
+Laboratory of Computer Vision - University of Padua 
