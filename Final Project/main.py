@@ -4,6 +4,8 @@ from ultralytics import YOLO
 import easyocr
 import matplotlib.pyplot as plt
 
+from TrafficLightColor import traffic_light_pos_color
+
 # Load the YOLOv8 pre-trained model
 model = YOLO("yolov8n.pt")  # Use YOLOv8n, or replace with a traffic sign-specific model
 reader = easyocr.Reader(['en'])  # For OCR to extract text from speed signs
@@ -21,19 +23,7 @@ def detect_objects(image):
     return results
 
 def analyze_traffic_light(region):
-    """Analyze traffic light to determine its status."""
-    hsv = cv2.cvtColor(region, cv2.COLOR_BGR2HSV)
-    mask_red = cv2.inRange(hsv, (0, 100, 100), (10, 255, 255))
-    mask_yellow = cv2.inRange(hsv, (20, 100, 100), (30, 255, 255))
-    mask_green = cv2.inRange(hsv, (50, 100, 100), (70, 255, 255))
-    
-    if cv2.countNonZero(mask_red):
-        return "Red"
-    elif cv2.countNonZero(mask_yellow):
-        return "Yellow"
-    elif cv2.countNonZero(mask_green):
-        return "Green"
-    return "Unknown"
+    return traffic_light_pos_color(region)
 
 def extract_speed_limit(image):
     """Extract the speed limit value from a detected sign."""

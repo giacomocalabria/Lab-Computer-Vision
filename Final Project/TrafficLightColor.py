@@ -6,8 +6,8 @@ import cv2 as cv
 import numpy as np
 
 # define the color ranges for red, yellow, and green
-lower_red = np.array([0, 50, 50])
-upper_red = np.array([10, 255, 255])
+lower_red = np.array([170, 50, 50])
+upper_red = np.array([180, 255, 255])
 lower_yellow = np.array([20, 50, 50])
 upper_yellow = np.array([30, 255, 255])
 lower_green = np.array([40, 50, 50])
