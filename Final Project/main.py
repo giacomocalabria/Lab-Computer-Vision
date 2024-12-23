@@ -1,14 +1,13 @@
 import cv2
 import numpy as np
 from ultralytics import YOLO
-import easyocr
 import matplotlib.pyplot as plt
 
 from TrafficLightColor import traffic_light_pos_color
+from SpeedLimit import get_speed_limit
 
 # Load the YOLOv8 pre-trained model
 model = YOLO("yolov8n.pt")  # Use YOLOv8n, or replace with a traffic sign-specific model
-reader = easyocr.Reader(['en'])  # For OCR to extract text from speed signs
 
 def load_images(folder_path):
     """Load all images from a folder."""
@@ -21,14 +20,6 @@ def detect_objects(image):
     """Run object detection on the image."""
     results = model.predict(image)
     return results
-
-def analyze_traffic_light(region):
-    return traffic_light_pos_color(region)
-
-def extract_speed_limit(image):
-    """Extract the speed limit value from a detected sign."""
-    result = reader.readtext(image, detail=0)
-    return result[0] if result else "Unknown"
 
 def process_image(image, image_name):
     """Process a single image."""
@@ -48,20 +39,20 @@ def process_image(image, image_name):
         # Traffic light analysis
         if label == "traffic light":
             region = image[y1:y2, x1:x2]
-            status = analyze_traffic_light(region)
+            status = traffic_light_pos_color(region)
             cv2.putText(image, status, (x1, y2 + 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
         
         # Speed limit sign analysis
         elif "speed limit" in label.lower():
             region = image[y1:y2, x1:x2]
-            speed_limit = extract_speed_limit(region)
+            speed_limit = get_speed_limit(region)
             cv2.putText(image, f"{speed_limit} km/h", (x1, y2 + 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
     
     return image
 
 def main():
     # Folder containing "easy" dataset images
-    folder_path = "dataset\data\hard"
+    folder_path = "dataset\data\easy"
     
     # Load images
     images, image_files = load_images(folder_path)
