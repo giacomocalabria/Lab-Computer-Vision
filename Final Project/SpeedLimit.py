@@ -4,6 +4,7 @@
 
 import numpy as np
 import cv2 as cv
+import re
 import easyocr
 
 def get_speed_limit(ROI):
@@ -24,11 +25,12 @@ def get_speed_limit(ROI):
     # Extract numbers from the detected text
     for detection in result:
         text = detection[1]  # The detected text
-        if text.isdigit():
-            return int(text)
+        match = re.search(r'\b\d{1,3}\b', text)  # Trova numeri con 1-3 cifre
+        if match:
+            return int(match.group(0))  # Ritorna il primo numero trovato
 
 if __name__ == "__main__":
-    image = cv.imread("speed limit sample/100.png")
+    image = cv.imread("speed limit sample/35.png")
 
     speed_limit = get_speed_limit(image)
     print("Speed limit:", speed_limit)
