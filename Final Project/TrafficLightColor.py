@@ -95,10 +95,10 @@ def traffic_light_pos_color(ROI):
     sorted_colors = sorted(color_counts.items(),  key=lambda x: x[1], reverse=True)
     prominent_color, max_count = sorted_colors[0] # get the most prominent color
 
-    threshold = max(100,int(np.mean([red_count, yellow_count, green_count]))) # set a threshold based on the average count
+    threshold = max(ROI.shape[0] * ROI.shape[1] * 0.0005,int(np.mean([red_count, yellow_count, green_count]))) # set a threshold based on the average count
 
-    # Check for red + yellow combination (British standard)
-    if prominent_color == "Red" and max_count > threshold and yellow_count > threshold:
+    # Check for red + yellow combination (British traffic light)
+    if (prominent_color == "Red" or prominent_color == "Yellow") and (red_count > threshold and yellow_count > threshold):
         return "Yellow with Red"
     
     if max_count > threshold:
@@ -108,7 +108,7 @@ def traffic_light_pos_color(ROI):
 
 if __name__ == "__main__":
     # Load an image containing a traffic light
-    ROI = cv.imread("traffic light sample/green_yellowBG.jpg")
+    ROI = cv.imread("traffic light sample/redyellow.png")
 
     # Analyze the traffic light status
     status = traffic_light_pos_color(ROI)
