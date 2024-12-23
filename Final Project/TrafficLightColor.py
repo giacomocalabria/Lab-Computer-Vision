@@ -63,8 +63,9 @@ def traffic_light_pos_color(ROI):
 
     # split the image into three regions
     height, width = ROI.shape[:2]
-    isVertical = height > width # check if the image is vertical or horizontal
 
+    # split the image into red, yellow, and green regions based on the orientation
+    isVertical = height > width # check if the image is vertical or horizontal
     if isVertical:
         red_region = ROI[0:int(height/3), :]                    # top
         yellow_region = ROI[int(height/3):int(2*height/3), :]   # middle
@@ -92,9 +93,9 @@ def traffic_light_pos_color(ROI):
     }
 
     sorted_colors = sorted(color_counts.items(),  key=lambda x: x[1], reverse=True)
-    prominent_color, max_count = sorted_colors[0]
+    prominent_color, max_count = sorted_colors[0] # get the most prominent color
 
-    threshold = int(np.mean([red_count, yellow_count, green_count]))
+    threshold = max(100,int(np.mean([red_count, yellow_count, green_count]))) # set a threshold based on the average count
 
     # Check for red + yellow combination (British standard)
     if prominent_color == "Red" and max_count > threshold and yellow_count > threshold:
@@ -107,7 +108,7 @@ def traffic_light_pos_color(ROI):
 
 if __name__ == "__main__":
     # Load an image containing a traffic light
-    ROI = cv.imread("redyellow.png")
+    ROI = cv.imread("traffic light sample/green_yellowBG.jpg")
 
     # Analyze the traffic light status
     status = traffic_light_pos_color(ROI)
