@@ -7,7 +7,7 @@ from TrafficLightColor import traffic_light_pos_color
 from SpeedLimit import get_speed_limit
 
 # Load the YOLOv8 pre-trained model
-model = YOLO("yolov8n.pt")  # Use YOLOv8n, or replace with a traffic sign-specific model
+model = YOLO("yolo11n.pt")  # Use YOLOv8n, or replace with a traffic sign-specific model
 
 def load_images(folder_path):
     """Load all images from a folder."""
@@ -52,7 +52,7 @@ def process_image(image, image_name):
 
 def main():
     # Folder containing "easy" dataset images
-    folder_path = "dataset\data\easy"
+    folder_path = "dataset/data/easy"
     
     # Load images
     images, image_files = load_images(folder_path)
@@ -65,10 +65,6 @@ def main():
         plt.title(f"Processed: {img_file}")
         plt.axis('off')
         plt.show()
-        
-        # Save the processed image
-        output_path = img_file.replace("easy_dataset", "output")
-        cv2.imwrite(output_path, processed_image)
 
 if __name__ == "__main__":
     main()
