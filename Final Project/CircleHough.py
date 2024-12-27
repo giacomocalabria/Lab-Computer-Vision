@@ -2,7 +2,9 @@ import numpy as np
 import cv2 as cv
 from matplotlib import pyplot as plt
 
-def detect_circles(image) -> np.ndarray:
+from HistEq import histeq
+
+def detect_circles(image,dp, min_dist,param1,param2,min_radius,max_radius) -> np.ndarray:
     """
     Detects circles in an image using HoughCircles and draws them filled.
     
@@ -25,14 +27,6 @@ def detect_circles(image) -> np.ndarray:
 
     # Apply GaussianBlur to reduce noise
     blurred = cv.GaussianBlur(gray, (5, 5), 1)
-
-    # Parameters for HoughCircles
-    dp = 1
-    min_dist = 15    
-    param1 = 90   # increase to reduce false positives 
-    param2 = 30   # increase to reduce false positives
-    min_radius = 50
-    max_radius = 70
 
     # Detect circles using HoughCircles
     circles = cv.HoughCircles(blurred, cv.HOUGH_GRADIENT, dp, min_dist, param1=param1, param2=param2, minRadius=min_radius, maxRadius=max_radius)
@@ -62,8 +56,23 @@ def detect_circles(image) -> np.ndarray:
 if __name__ == "__main__":
 
     # Load the image
-    image_path = "lab2/data/road8.jpg"
+    image_path = "Final Project/dataset/data/easy/rs7.jpg"
     image = cv.imread(image_path)
 
+    if image is None:
+        print(f"Error: Image not found at {image_path}")
+        exit()
+    
+    # Apply histogram equalization to improve contrast
+    image = histeq(image)
+
+    # Parameters for HoughCircles
+    dp = 1
+    min_dist = 100    
+    param1 = 100   # increase to reduce false positives 
+    param2 = 40   # increase to reduce false positives
+    min_radius = 20
+    max_radius = 55
+
     # Detect circles in the image
-    detect_circles(image)
+    detect_circles(image,dp, min_dist,param1,param2,min_radius,max_radius)
