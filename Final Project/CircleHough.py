@@ -56,6 +56,8 @@ def detect_circles(image) -> np.ndarray:
     plt.axis('off')
     plt.show()
 
+    return circles
+
 
 if __name__ == "__main__":
 
