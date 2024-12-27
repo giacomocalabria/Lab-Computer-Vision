@@ -26,14 +26,15 @@ def detect_circles(image,dp, min_dist,param1,param2,min_radius,max_radius) -> np
     gray = cv.cvtColor(uint8_image, cv.COLOR_BGR2GRAY)
 
     # Apply GaussianBlur to reduce noise
-    blurred = cv.GaussianBlur(gray, (5, 5), 1)
+    blurred = cv.GaussianBlur(gray, (9, 9), 2)
 
     # Detect circles using HoughCircles
     circles = cv.HoughCircles(blurred, cv.HOUGH_GRADIENT, dp, min_dist, param1=param1, param2=param2, minRadius=min_radius, maxRadius=max_radius)
 
+    return circles
+
 
 if __name__ == "__main__":
-
     # Load the image
     image_path = "Final Project/dataset/data/easy/rs6.jpg"
     image = cv.imread(image_path)
@@ -48,10 +49,10 @@ if __name__ == "__main__":
     # Parameters for HoughCircles
     dp = 1
     min_dist = 100    
-    param1 = 100   # increase to reduce false positives 
-    param2 = 40   # increase to reduce false positives
-    min_radius = 20
-    max_radius = 55
+    param1 = 80  # increase to reduce false positives 
+    param2 = 40    # increase to reduce false positives
+    min_radius = 10
+    max_radius = 65
 
     # Detect circles in the image
     circles = detect_circles(image,dp, min_dist,param1,param2,min_radius,max_radius)
@@ -64,9 +65,12 @@ if __name__ == "__main__":
         for circle in circles[0, :]:
             center = (circle[0], circle[1])  # x, y
             radius = circle[2]
+
+            print(radius)
             
             # Draw the circle
-            cv.circle(image, center, radius, (0, 255, 0), thickness=-1)  # Green filled circle
+            cv.rectangle(image, (center[0] - radius, center[1] - radius), (center[0] + radius, center[1] + radius), (0, 255, 0), 3)
+            cv.circle(image, center, radius, (0, 0, 255), thickness=2)  # Green filled circle
 
     # Show the result
     plt.figure(figsize=(10, 10))
