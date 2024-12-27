@@ -31,32 +31,11 @@ def detect_circles(image,dp, min_dist,param1,param2,min_radius,max_radius) -> np
     # Detect circles using HoughCircles
     circles = cv.HoughCircles(blurred, cv.HOUGH_GRADIENT, dp, min_dist, param1=param1, param2=param2, minRadius=min_radius, maxRadius=max_radius)
 
-    if circles is not None:
-        print(f"Number of circles detected: {circles.shape[1]}")
-
-    if circles is not None:
-        # Convert the circle parameters to integers
-        circles = np.uint16(np.around(circles))
-        for circle in circles[0, :]:
-            center = (circle[0], circle[1])  # x, y
-            radius = circle[2]
-            
-            # Draw the circle
-            cv.circle(image, center, radius, (0, 255, 0), thickness=-1)  # Green filled circle
-
-    # Show the result
-    plt.figure(figsize=(10, 10))
-    plt.imshow(cv.cvtColor(image, cv.COLOR_BGR2RGB))
-    plt.axis('off')
-    plt.show()
-
-    return circles
-
 
 if __name__ == "__main__":
 
     # Load the image
-    image_path = "Final Project/dataset/data/easy/rs7.jpg"
+    image_path = "Final Project/dataset/data/easy/rs6.jpg"
     image = cv.imread(image_path)
 
     if image is None:
@@ -75,4 +54,22 @@ if __name__ == "__main__":
     max_radius = 55
 
     # Detect circles in the image
-    detect_circles(image,dp, min_dist,param1,param2,min_radius,max_radius)
+    circles = detect_circles(image,dp, min_dist,param1,param2,min_radius,max_radius)
+
+    if circles is not None:
+        print(f"Number of circles detected: {circles.shape[1]}")
+
+        # Convert the circle parameters to integers
+        circles = np.uint16(np.around(circles))
+        for circle in circles[0, :]:
+            center = (circle[0], circle[1])  # x, y
+            radius = circle[2]
+            
+            # Draw the circle
+            cv.circle(image, center, radius, (0, 255, 0), thickness=-1)  # Green filled circle
+
+    # Show the result
+    plt.figure(figsize=(10, 10))
+    plt.imshow(cv.cvtColor(image, cv.COLOR_BGR2RGB))
+    plt.axis('off')
+    plt.show()
