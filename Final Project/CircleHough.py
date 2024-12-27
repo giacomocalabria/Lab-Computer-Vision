@@ -28,14 +28,17 @@ def detect_circles(image) -> np.ndarray:
 
     # Parameters for HoughCircles
     dp = 1
-    min_dist = 100    
-    param1 = 100
-    param2 = 40
-    min_radius = 10
-    max_radius = 40
+    min_dist = 15    
+    param1 = 90   # increase to reduce false positives 
+    param2 = 30   # increase to reduce false positives
+    min_radius = 50
+    max_radius = 70
 
     # Detect circles using HoughCircles
     circles = cv.HoughCircles(blurred, cv.HOUGH_GRADIENT, dp, min_dist, param1=param1, param2=param2, minRadius=min_radius, maxRadius=max_radius)
+
+    if circles is not None:
+        print(f"Number of circles detected: {circles.shape[1]}")
 
     if circles is not None:
         # Convert the circle parameters to integers
@@ -57,7 +60,7 @@ def detect_circles(image) -> np.ndarray:
 if __name__ == "__main__":
 
     # Load the image
-    image_path = "Final Project/road1.png"
+    image_path = "lab2/data/road8.jpg"
     image = cv.imread(image_path)
 
     # Detect circles in the image
