@@ -7,9 +7,8 @@ import cv2 as cv
 import re
 import easyocr
 
-def get_speed_limit(ROI):
-    if ROI is None:
-        return "Unknown" # no image provided
+def get_speed_limit(ROI) -> int:
+    if ROI is None: return "Unknown"
 
     # convert the ROI to grayscale
     gray = cv.cvtColor(ROI, cv.COLOR_BGR2GRAY)
@@ -19,15 +18,15 @@ def get_speed_limit(ROI):
     _, binary = cv.threshold(blurred, 0, 255, cv.THRESH_BINARY + cv.THRESH_OTSU)
 
     # Use EasyOCR to extract text
-    reader = easyocr.Reader(['en'], gpu=False)  # Set gpu=True if you have a GPU
+    reader = easyocr.Reader(['en'], gpu=False)
     result = reader.readtext(binary)
 
     # Extract numbers from the detected text
     for detection in result:
         text = detection[1]  # The detected text
-        match = re.search(r'\b\d{1,3}\b', text)  # Trova numeri con 1-3 cifre
+        match = re.search(r'\b\d{1,3}\b', text)  # Search for a number with 1-3 digits
         if match:
-            return int(match.group(0))  # Ritorna il primo numero trovato
+            return int(match.group(0))  # Return the first number found
 
 if __name__ == "__main__":
     image = cv.imread("speed limit sample/35.png")
