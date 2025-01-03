@@ -108,5 +108,6 @@ def main():
 
     plt.imshow(cv.cvtColor(images[9], cv.COLOR_BGR2RGB))
     plt.show()
+    
 if __name__ == "__main__":
     main()
