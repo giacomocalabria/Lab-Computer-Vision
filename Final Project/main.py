@@ -12,20 +12,16 @@ model = YOLO("yolo11n.pt")  # Use YOLOv8n, or replace with a traffic sign-specif
 def load_images(folder_path):
     """Load all images from a folder."""
     import os
-    image_files = [os.path.join(folder_path, f) for f in os.listdir(folder_path) if f.endswith(('.jpg', '.png'))]
+    image_files = [os.path.join(folder_path, f) for f in os.listdir(folder_path) if f.endswith(('.jpg', '.png', '.jpeg'))]
     images = [cv2.imread(img_path) for img_path in image_files]
     return images, image_files
 
-def detect_objects(image):
-    """Run object detection on the image."""
-    results = model.predict(image)
-    return results
 
 def process_image(image, image_name):
     """Process a single image."""
     print(f"Processing: {image_name}")
     
-    results = detect_objects(image)
+    results = model.predict(image)
     detections = results[0].boxes.data.cpu().numpy()  # YOLO detection results
     
     for box in detections:
@@ -51,8 +47,11 @@ def process_image(image, image_name):
     return image
 
 def main():
-    # Folder containing "easy" dataset images
+    # Folder containing "easy" test image dataset
     folder_path = "dataset/data/easy"
+
+    # Folder containing "hard" test image dataset
+    # folder_path = "dataset/data/hard"
     
     # Load images
     images, image_files = load_images(folder_path)
