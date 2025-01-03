@@ -41,6 +41,10 @@ def separate_image_by_brightness(image):
 
     return zona_sopra, zona_sotto, separation_line
 
+def separate_ceil(image):
+    _,_,linea_separazione = separate_image_by_brightness(image)
+    return linea_separazione
+
 # Esempio d'uso
 if __name__ == "__main__":
     # Carica un'immagine di esempio
