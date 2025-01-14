@@ -7,6 +7,8 @@ import cv2 as cv
 import re
 import easyocr
 
+import matplotlib.pyplot as plt
+
 def get_speed_limit(ROI) -> int:
     if ROI is None: return "Unknown"
 
@@ -14,12 +16,11 @@ def get_speed_limit(ROI) -> int:
     gray = cv.cvtColor(ROI, cv.COLOR_BGR2GRAY)
 
     # Apply preprocessing to enhance OCR performance
-    blurred = cv.GaussianBlur(gray, (5, 5), 0)
-    _, binary = cv.threshold(blurred, 0, 255, cv.THRESH_BINARY + cv.THRESH_OTSU)
+    blurred = cv.GaussianBlur(gray, (5, 5), 1)
 
     # Use EasyOCR to extract text
     reader = easyocr.Reader(['en'], gpu=False)
-    result = reader.readtext(binary)
+    result = reader.readtext(blurred, allowlist='0123456789')#, text_threshold=1)
 
     # Extract numbers from the detected text
     for detection in result:
@@ -29,7 +30,7 @@ def get_speed_limit(ROI) -> int:
             return int(match.group(0))  # Return the first number found
 
 if __name__ == "__main__":
-    image = cv.imread("speed limit sample/35.png")
+    image = cv.imread("dataset/speed limit sample/100diff.png.jpg")
 
     speed_limit = get_speed_limit(image)
     print("Speed limit:", speed_limit)
