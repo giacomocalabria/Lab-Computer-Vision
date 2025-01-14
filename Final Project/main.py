@@ -6,8 +6,10 @@ import matplotlib.pyplot as plt
 from TrafficLightColor import traffic_light_pos_color
 from SpeedLimit import get_speed_limit
 
+from HistEq import histeq
+
 # Load the YOLOv8 pre-trained model
-model = YOLO("yolo11n.pt")  # Use YOLOv8n, or replace with a traffic sign-specific model
+model = YOLO("yolo11x.pt")  # Use YOLOv8n, or replace with a traffic sign-specific model
 
 def load_images(folder_path):
     """Load all images from a folder."""
@@ -20,6 +22,7 @@ def load_images(folder_path):
 def process_image(image, image_name):
     """Process a single image."""
     print(f"Processing: {image_name}")
+    #image = histeq(image)  # Apply histogram equalization
     
     results = model.predict(image)
     detections = results[0].boxes.data.cpu().numpy()  # YOLO detection results
@@ -28,21 +31,26 @@ def process_image(image, image_name):
         x1, y1, x2, y2, conf, cls = map(int, box)
         label = results[0].names[cls]
         
-        # Draw bounding box and label
-        cv2.rectangle(image, (x1, y1), (x2, y2), (0, 255, 0), 2)
-        cv2.putText(image, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-        
         # Traffic light analysis
         if label == "traffic light":
             region = image[y1:y2, x1:x2]
             status = traffic_light_pos_color(region)
             cv2.putText(image, status, (x1, y2 + 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
+            cv2.rectangle(image, (x1, y1), (x2, y2), (0, 255, 0), 2)
+            cv2.putText(image, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
         
         # Speed limit sign analysis
-        elif "speed limit" in label.lower():
+        elif label == "speed limit":
             region = image[y1:y2, x1:x2]
             speed_limit = get_speed_limit(region)
             cv2.putText(image, f"{speed_limit} km/h", (x1, y2 + 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
+            cv2.rectangle(image, (x1, y1), (x2, y2), (0, 255, 0), 2)
+            cv2.putText(image, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+
+        elif label == "stop sign":
+            cv2.rectangle(image, (x1, y1), (x2, y2), (0, 255, 0), 2)
+            cv2.putText(image, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+        
     
     return image
 
