@@ -2,9 +2,9 @@ import cv2 as cv
 import numpy as np
 from matplotlib import pyplot as plt
 
-from SpeedLimit import get_speed_limit
-from CircleHough import detect_circles
-from SeparateGroundCeil import separate_ceil
+from functions.SpeedLimit import get_speed_limit
+from functions.CircleHough import detect_circles
+from functions.SeparateGroundCeil import separate_ceil
 
 def load_images(folder_path):
     """Load all images from a folder."""
@@ -46,6 +46,8 @@ def process_image(image, image_name):
 
             if speed_limit is not None:
                 cv.putText(image, f"{speed_limit} km/h", (center[0] - radius, center[1] + radius + 40), cv.FONT_HERSHEY_SIMPLEX, 1.5, (0, 0, 255), 2)
+            else:
+                cv.putText(image, "Generic road sign", (center[0] - radius, center[1] + radius + 40), cv.FONT_HERSHEY_SIMPLEX, 1.5, (0, 0, 255), 2)
 
     return image
 

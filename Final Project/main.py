@@ -3,13 +3,12 @@ import numpy as np
 from ultralytics import YOLO
 import matplotlib.pyplot as plt
 
-from TrafficLightColor import traffic_light_pos_color
-from SpeedLimit import get_speed_limit
-
-from HistEq import histeq
+from functions.TrafficLightColor import traffic_light_pos_color
+from functions.SpeedLimit import get_speed_limit
+from functions.HistEq import histeq
 
 # Load the YOLOv8 pre-trained model
-model = YOLO("yolo11x.pt")  # Use YOLOv8n, or replace with a traffic sign-specific model
+model = YOLO("yolo11l.pt")  # Use YOLOv8n, or replace with a traffic sign-specific model
 
 def load_images(folder_path):
     """Load all images from a folder."""
@@ -37,7 +36,7 @@ def process_image(image, image_name):
             status = traffic_light_pos_color(region)
             cv2.putText(image, status, (x1, y2 + 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
             cv2.rectangle(image, (x1, y1), (x2, y2), (0, 255, 0), 2)
-            cv2.putText(image, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+            cv2.putText(image, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)        
         
         # Speed limit sign analysis
         elif label == "speed limit":

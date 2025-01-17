@@ -2,9 +2,9 @@ import numpy as np
 import cv2 as cv
 from matplotlib import pyplot as plt
 
-from HistEq import histeq
+from functions.HistEq import histeq
 
-from SeparateGroundCeil import separate_ceil
+from functions.SeparateGroundCeil import separate_ceil
 
 def detect_circles(image,dp, min_dist,param1,param2,min_radius,max_radius) -> np.ndarray:
     """

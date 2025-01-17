@@ -2,7 +2,7 @@ import cv2 as cv
 import numpy as np
 from matplotlib import pyplot as plt
 
-from TrafficLightColor import traffic_light_pos_color, traffic_light_color
+from functions.TrafficLightColor import traffic_light_pos_color, traffic_light_color
 
 stop_light = cv.CascadeClassifier('CascadeClassifier/TrafficLight_HAAR_16Stages.xml')
 
