@@ -25,10 +25,10 @@ def detect_circles(image,dp, min_dist,param1,param2,min_radius,max_radius) -> np
     # Convert the image to unit8 and grayscale for HoughCircles transformation
     #uint8_image = (image * 255).astype(np.uint8)
 
-    gray = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
-
     # Apply histogram equalization to improve contrast
     image = histeq(image)
+
+    gray = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
 
     # Apply GaussianBlur to reduce noise
     blurred = cv.GaussianBlur(gray, (9, 9), 2)
