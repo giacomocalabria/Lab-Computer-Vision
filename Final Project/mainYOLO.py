@@ -34,10 +34,13 @@ def process_image(image, image_name):
     #image = histeq(image)  # Apply histogram equalization
     
     # Detect object in the image with YOLO
-    resultsYOLO = model.predict(image)
+    print(image.shape)
+    resultsYOLO = model.predict(image,imgsz=image.shape[:2], classes=[9,11])
 
     # Detect circles in the image with HoughCircles
     circles = detect_circles(image[separate_ceil(image):, :],dp, min_dist,param1,param2,min_radius,max_radius)
+
+    cv.line(image, (0, separate_ceil(image)), (image.shape[1], separate_ceil(image)), (0, 0, 255), 2)
 
     detections = resultsYOLO[0].boxes.data.cpu().numpy()  # YOLO detection results
     for box in detections:
@@ -56,7 +59,7 @@ def process_image(image, image_name):
             cv.rectangle(image, (x1, y1), (x2, y2), (0, 255, 0), 2)
             cv.putText(image, label, (x1, y1 - 10), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
     
-    if circles is not None:
+    if circles is not None: # HoughCircles detected circles
         # print(f"Number of circles detected: {circles.shape[1]}")
 
         # Convert the circle parameters to integers
@@ -67,12 +70,12 @@ def process_image(image, image_name):
             radius = circle[2]
 
             # Extract the ROI for speed limit sign
-            region = image[center[1] - radius -10: center[1] + radius +10, center[0] - radius -10: center[0] + radius+10]
+            region = image[center[1] - radius -15: center[1] + radius +15, center[0] - radius -15: center[0] + radius+15]
             speed_limit = get_speed_limit(region)
 
             if speed_limit is not None:
                 cv.putText(image, f"{speed_limit} km/h", (center[0] - radius, center[1] + radius + 40), cv.FONT_HERSHEY_SIMPLEX, 1.5, (0, 0, 255), 2)
-                cv.rectangle(image, (center[0] - radius, center[1] - radius), (center[0] + radius, center[1] + radius), (0, 255, 0), 3)
+                cv.rectangle(image, (center[0] - radius - 5, center[1] - radius - 5), (center[0] + radius +5, center[1] + radius+5), (255, 255, 0), 3)
             #else:
             #    cv.putText(image, "Generic road sign", (center[0] - radius, center[1] + radius + 40), cv.FONT_HERSHEY_SIMPLEX, 1.5, (0, 0, 255), 2)
         
