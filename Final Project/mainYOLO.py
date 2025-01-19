@@ -19,7 +19,6 @@ def load_images(folder_path):
     images = [cv.imread(img_path) for img_path in image_files]
     return images, image_files
 
-
 # Parameters for HoughCircles
 dp = 1
 min_dist = 100    
@@ -55,7 +54,7 @@ def process_image(image, image_name):
             cv.rectangle(image, (x1, y1), (x2, y2), (0, 255, 0), 2)
             cv.putText(image, label, (x1, y1 - 10), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
-        elif label == "stop sign":
+        else:
             cv.rectangle(image, (x1, y1), (x2, y2), (0, 255, 0), 2)
             cv.putText(image, label, (x1, y1 - 10), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
     
@@ -83,7 +82,7 @@ def process_image(image, image_name):
 
 def main():
     # Folder containing "easy" test image dataset
-    folder_path = "dataset/data/easy"
+    folder_path = "dataset/data"
 
     # Folder containing "hard" test image dataset
     # folder_path = "dataset/data/hard"

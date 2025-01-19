@@ -1,0 +1,10 @@
+# Project requirements
+
+# Base
+opencv-python
+numpy
+matplotlib
+
+# AI & ML
+ultralytics
+easyocr
