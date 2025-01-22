@@ -9,8 +9,9 @@ from functions.CircleHough import detect_circles
 from functions.SeparateGroundCeil import separate_ceil
 from functions.HistEq import histeq
 
-# Load the YOLOv8 pre-trained model
-model = YOLO("best.pt")  # Use YOLOv8n, or replace with a traffic sign-specific model
+# Load the YOLO model
+modelCOCO = YOLO("yolo11x.pt")
+modelTRAIN = YOLO("best11l50.pt")
 
 def load_images(folder_path):
     """Load all images from a folder."""
@@ -20,7 +21,7 @@ def load_images(folder_path):
     return images, image_files
 
 # Parameters for HoughCircles
-dp = 1
+dp = 1          # Minimum value of dp is 1, it has better performance but higher computational cost
 min_dist = 100    
 param1 = 80     # increase to reduce false positives 
 param2 = 40     # increase to reduce false positives
@@ -30,21 +31,20 @@ max_radius = 65
 def process_image(image, image_name):
     """Process a single image."""
     print(f"Processing: {image_name}")
-    #image = histeq(image)  # Apply histogram equalization
     
     # Detect object in the image with YOLO
-    print(image.shape)
-    resultsYOLO = model.predict(image,imgsz=image.shape[:2], classes=[9,11])
+    resultsCOCO = modelCOCO.predict(image,imgsz=image.shape[:2], classes=[9,11])  # Only class traffic light and stop sign allowed
+    resultsTRAIN = modelTRAIN.predict(image,imgsz=image.shape[:2])
 
     # Detect circles in the image with HoughCircles
     circles = detect_circles(image[separate_ceil(image):, :],dp, min_dist,param1,param2,min_radius,max_radius)
 
     cv.line(image, (0, separate_ceil(image)), (image.shape[1], separate_ceil(image)), (0, 0, 255), 2)
 
-    detections = resultsYOLO[0].boxes.data.cpu().numpy()  # YOLO detection results
-    for box in detections:
+    detectionsCOCO = resultsCOCO[0].boxes.data.cpu().numpy()  # YOLO detection results
+    for box in detectionsCOCO:
         x1, y1, x2, y2, conf, cls = map(int, box)
-        label = resultsYOLO[0].names[cls]
+        label = resultsCOCO[0].names[cls]
         
         # Traffic light analysis
         if label == "traffic light":
@@ -54,13 +54,22 @@ def process_image(image, image_name):
             cv.rectangle(image, (x1, y1), (x2, y2), (0, 255, 0), 2)
             cv.putText(image, label, (x1, y1 - 10), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
+        # Stop signal
         else:
             cv.rectangle(image, (x1, y1), (x2, y2), (0, 255, 0), 2)
             cv.putText(image, label, (x1, y1 - 10), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-    
-    if circles is not None: # HoughCircles detected circles
-        # print(f"Number of circles detected: {circles.shape[1]}")
 
+    detectionsTRAIN = resultsTRAIN[0].boxes.data.cpu().numpy()  # YOLO trained model detection results
+    for box in detectionsTRAIN:
+        x1, y1, x2, y2, conf, cls = map(int, box)
+        label = resultsTRAIN[0].names[cls]
+
+        cv.rectangle(image, (x1, y1), (x2, y2), (0, 255, 0), 2)
+        cv.putText(image, label, (x1, y1 + 10), cv.FONT_HERSHEY_SIMPLEX, 0.5, (255,0, 0), 2)
+
+    circles = None
+
+    if circles is not None: # HoughCircles detected circles
         # Convert the circle parameters to integers
         circles = np.uint16(np.around(circles))
         for circle in circles[0, :]:
@@ -70,22 +79,17 @@ def process_image(image, image_name):
 
             # Extract the ROI for speed limit sign
             region = image[center[1] - radius -15: center[1] + radius +15, center[0] - radius -15: center[0] + radius+15]
-            speed_limit = get_speed_limit(region)
+            speed_limit = get_speed_limit(region) # Get the speed limit from the ROI with OCR
 
-            if speed_limit is not None:
-                cv.putText(image, f"{speed_limit} km/h", (center[0] - radius, center[1] + radius + 40), cv.FONT_HERSHEY_SIMPLEX, 1.5, (0, 0, 255), 2)
-                cv.rectangle(image, (center[0] - radius - 5, center[1] - radius - 5), (center[0] + radius +5, center[1] + radius+5), (255, 255, 0), 3)
-            #else:
-            #    cv.putText(image, "Generic road sign", (center[0] - radius, center[1] + radius + 40), cv.FONT_HERSHEY_SIMPLEX, 1.5, (0, 0, 255), 2)
+            #if speed_limit is not None:
+            cv.putText(image, f"{speed_limit} km/h", (center[0] - radius, center[1] + radius + 40), cv.FONT_HERSHEY_SIMPLEX, 1.5, (0, 0, 255), 2)
+            cv.rectangle(image, (center[0] - radius - 5, center[1] - radius - 5), (center[0] + radius +5, center[1] + radius+5), (255, 255, 0), 3)
         
     return image
 
 def main():
-    # Folder containing "easy" test image dataset
+    # Folder containing test image dataset
     folder_path = "dataset/data"
-
-    # Folder containing "hard" test image dataset
-    # folder_path = "dataset/data/hard"
     
     # Load images
     images, image_files = load_images(folder_path)
