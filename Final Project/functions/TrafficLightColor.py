@@ -54,6 +54,66 @@ def traffic_light_color(ROI):
     else:
         return "Unknown"
     
+def traffic_light_pos_BW(ROI):
+    if ROI is None:
+        return "Unknown" # no image provided
+
+    # convert the ROI to grayscale
+    gray = cv.cvtColor(ROI, cv.COLOR_BGR2GRAY)
+
+    # split the image into three regions
+    height, width = gray.shape[:2]
+
+    # split the image into red, yellow, and green regions based on the orientation
+    isVertical = height > width # check if the image is vertical or horizontal
+    if isVertical:
+        red_region = gray[0:int(height/3), :]                    # top
+        yellow_region = gray[int(height/3):int(2*height/3), :]   # middle
+        green_region = gray[int(2*height/3):, :]                 # bottom
+    
+    else:
+        red_region = gray[:, 0:int(width/3)]                     # left
+        yellow_region = gray[:, int(width/3):int(2*width/3)]     # middle
+        green_region = gray[:, int(2*width/3):]                  # right
+    
+    # calculate the average pixel intensity for each region
+    red_intensity = np.mean(red_region)
+    yellow_intensity = np.mean(yellow_region)
+    green_intensity = np.mean(green_region)
+
+    intensity_values = {
+        "Red": red_intensity,
+        "Yellow": yellow_intensity,
+        "Green": green_intensity
+    }
+
+    brightness_variance = np.std([red_intensity, yellow_intensity, green_intensity])
+
+    print("STD:", brightness_variance)
+
+    if brightness_variance < 15:
+        print("Low std")
+        return "Unknown"
+
+    sorted_intensities = sorted(intensity_values.items(),  key=lambda x: x[1], reverse=True)
+    prominent_color, max_count = sorted_intensities[0] # get the most prominent color
+
+    print("Sorted colors:", sorted_intensities)
+
+    threshold = max(np.mean([red_intensity, yellow_intensity, green_intensity])*1.2, 60)
+
+    print("Threshold:", threshold)
+
+    # Check for red + yellow combination (British traffic light)
+    if (prominent_color == "Red" or prominent_color == "Yellow") and (red_intensity > threshold and yellow_intensity > threshold):
+        return "Yellow with Red"
+    
+    if max_count > threshold:
+        print("Prominent color:", prominent_color)
+        return prominent_color
+    else:
+        return "Unknown"
+    
 def traffic_light_pos_color(ROI):
     if ROI is None:
         return "Unknown" # no image provided
@@ -94,6 +154,8 @@ def traffic_light_pos_color(ROI):
 
     sorted_colors = sorted(color_counts.items(),  key=lambda x: x[1], reverse=True)
     prominent_color, max_count = sorted_colors[0] # get the most prominent color
+
+    print("Sorted colors:", sorted_colors)
 
     threshold = max(ROI.shape[0] * ROI.shape[1] * 0.0005,int(np.mean([red_count, yellow_count, green_count]))) # set a threshold based on the average count
 
