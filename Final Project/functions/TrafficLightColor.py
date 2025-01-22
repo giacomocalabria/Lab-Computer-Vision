@@ -89,27 +89,19 @@ def traffic_light_pos_BW(ROI):
 
     brightness_variance = np.std([red_intensity, yellow_intensity, green_intensity])
 
-    print("STD:", brightness_variance)
-
     if brightness_variance < 15:
-        print("Low std")
         return "Unknown"
 
     sorted_intensities = sorted(intensity_values.items(),  key=lambda x: x[1], reverse=True)
     prominent_color, max_count = sorted_intensities[0] # get the most prominent color
 
-    print("Sorted colors:", sorted_intensities)
-
     threshold = max(np.mean([red_intensity, yellow_intensity, green_intensity])*1.2, 60)
-
-    print("Threshold:", threshold)
 
     # Check for red + yellow combination (British traffic light)
     if (prominent_color == "Red" or prominent_color == "Yellow") and (red_intensity > threshold and yellow_intensity > threshold):
         return "Yellow with Red"
     
     if max_count > threshold:
-        print("Prominent color:", prominent_color)
         return prominent_color
     else:
         return "Unknown"
@@ -170,8 +162,8 @@ def traffic_light_pos_color(ROI):
 
 if __name__ == "__main__":
     # Load an image containing a traffic light
-    ROI = cv.imread("traffic light sample/redyellow.png")
+    ROI = cv.imread("dataset\\traffic light sample\\green_yellowBG.jpg")
 
     # Analyze the traffic light status
-    status = traffic_light_pos_color(ROI)
+    status = traffic_light_color(ROI)
     print("Traffic light status:", status)

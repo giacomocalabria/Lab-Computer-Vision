@@ -21,9 +21,6 @@ def detect_circles(image,dp, min_dist,param1,param2,min_radius,max_radius) -> np
 
     if image is None:
         return None
-    
-    # Convert the image to unit8 and grayscale for HoughCircles transformation
-    #uint8_image = (image * 255).astype(np.uint8)
 
     # Apply histogram equalization to improve contrast
     image = histeq(image)
@@ -37,7 +34,6 @@ def detect_circles(image,dp, min_dist,param1,param2,min_radius,max_radius) -> np
     circles = cv.HoughCircles(blurred, cv.HOUGH_GRADIENT, dp, min_dist, param1=param1, param2=param2, minRadius=min_radius, maxRadius=max_radius)
 
     return circles
-
 
 if __name__ == "__main__":
     # Load the image
