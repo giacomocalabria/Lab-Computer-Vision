@@ -3,14 +3,14 @@ import numpy as np
 from ultralytics import YOLO
 import matplotlib.pyplot as plt
 
-from functions.TrafficLightColor import traffic_light_pos_color
+from functions.TrafficLightColor import traffic_light_color, traffic_light_pos_color,traffic_light_pos_BW
 from functions.SpeedLimit import get_speed_limit
 from functions.CircleHough import detect_circles
 from functions.SeparateGroundCeil import separate_ceil
 from functions.HistEq import histeq
 
 # Load the YOLOv8 pre-trained model
-model = YOLO("yolo11x.pt")  # Use YOLOv8n, or replace with a traffic sign-specific model
+model = YOLO("best.pt")  # Use YOLOv8n, or replace with a traffic sign-specific model
 
 def load_images(folder_path):
     """Load all images from a folder."""
@@ -49,7 +49,7 @@ def process_image(image, image_name):
         # Traffic light analysis
         if label == "traffic light":
             region = image[y1:y2, x1:x2]
-            status = traffic_light_pos_color(region)
+            status = traffic_light_pos_BW(region)
             cv.putText(image, status, (x1, y2 + 20), cv.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
             cv.rectangle(image, (x1, y1), (x2, y2), (0, 255, 0), 2)
             cv.putText(image, label, (x1, y1 - 10), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
