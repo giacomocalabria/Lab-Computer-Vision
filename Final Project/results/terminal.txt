@@ -1,0 +1,198 @@
+poython main.py
+Processing: dataset/data\24550.png
+
+WARNING ⚠️ imgsz=[720, 1280] must be multiple of max stride 32, updating to [736, 1280]
+0: 736x1280 1 stop sign, 2303.0ms
+Speed: 10.3ms preprocess, 2303.0ms inference, 4.8ms postprocess per image at shape (1, 3, 736, 1280)
+
+WARNING ⚠️ imgsz=[720, 1280] must be multiple of max stride 32, updating to [736, 1280]
+0: 736x1280 (no detections), 405.6ms
+Speed: 8.0ms preprocess, 405.6ms inference, 2.0ms postprocess per image at shape (1, 3, 736, 1280)
+Using CPU. Note: This module is much faster with a GPU.
+Processing: dataset/data\39178.png
+
+WARNING ⚠️ imgsz=[720, 1280] must be multiple of max stride 32, updating to [736, 1280]
+0: 736x1280 4 traffic lights, 2888.9ms
+Speed: 29.0ms preprocess, 2888.9ms inference, 9.8ms postprocess per image at shape (1, 3, 736, 1280)
+
+WARNING ⚠️ imgsz=[720, 1280] must be multiple of max stride 32, updating to [736, 1280]
+0: 736x1280 1 Red Light, 693.2ms
+Speed: 6.0ms preprocess, 693.2ms inference, 2.0ms postprocess per image at shape (1, 3, 736, 1280)
+Processing: dataset/data\road25.png
+
+WARNING ⚠️ imgsz=[267, 400] must be multiple of max stride 32, updating to [288, 416]
+0: 288x416 4 traffic lights, 475.0ms
+Speed: 16.7ms preprocess, 475.0ms inference, 1.0ms postprocess per image at shape (1, 3, 288, 416)
+
+WARNING ⚠️ imgsz=[267, 400] must be multiple of max stride 32, updating to [288, 416]
+0: 288x416 1 Red Light, 108.4ms
+Speed: 1.9ms preprocess, 108.4ms inference, 1.0ms postprocess per image at shape (1, 3, 288, 416)
+Processing: dataset/data\road43.png
+
+WARNING ⚠️ imgsz=[267, 400] must be multiple of max stride 32, updating to [288, 416]
+0: 288x416 11 traffic lights, 462.2ms
+Speed: 3.0ms preprocess, 462.2ms inference, 0.9ms postprocess per image at shape (1, 3, 288, 416)
+
+WARNING ⚠️ imgsz=[267, 400] must be multiple of max stride 32, updating to [288, 416]
+0: 288x416 3 Green Lights, 89.8ms
+Speed: 1.0ms preprocess, 89.8ms inference, 0.0ms postprocess per image at shape (1, 3, 288, 416)
+Processing: dataset/data\rs1.jpg
+
+0: 960x1280 1 stop sign, 3080.9ms
+Speed: 39.0ms preprocess, 3080.9ms inference, 2.0ms postprocess per image at shape (1, 3, 960, 1280)
+
+0: 960x1280 1 Speed Limit 70, 503.5ms
+Speed: 10.1ms preprocess, 503.5ms inference, 1.8ms postprocess per image at shape (1, 3, 960, 1280)
+Using CPU. Note: This module is much faster with a GPU.
+Processing: dataset/data\rs1h.jpg
+
+0: 960x1280 (no detections), 3153.5ms
+Speed: 31.8ms preprocess, 3153.5ms inference, 2.0ms postprocess per image at shape (1, 3, 960, 1280)
+
+0: 960x1280 2 Speed Limit 70s, 531.8ms
+Speed: 14.7ms preprocess, 531.8ms inference, 3.0ms postprocess per image at shape (1, 3, 960, 1280)
+Processing: dataset/data\rs2.jpg
+
+0: 960x1280 1 stop sign, 2982.2ms
+Speed: 13.6ms preprocess, 2982.2ms inference, 2.0ms postprocess per image at shape (1, 3, 960, 1280)
+
+0: 960x1280 (no detections), 482.8ms
+Speed: 10.9ms preprocess, 482.8ms inference, 0.0ms postprocess per image at shape (1, 3, 960, 1280)
+Using CPU. Note: This module is much faster with a GPU.
+Processing: dataset/data\rs3.jpg
+
+0: 960x1280 (no detections), 3096.4ms
+Speed: 19.7ms preprocess, 3096.4ms inference, 2.0ms postprocess per image at shape (1, 3, 960, 1280)
+
+0: 960x1280 1 Speed Limit 80, 500.9ms
+Speed: 9.8ms preprocess, 500.9ms inference, 0.0ms postprocess per image at shape (1, 3, 960, 1280)
+Using CPU. Note: This module is much faster with a GPU.
+Processing: dataset/data\rs3h.jpg
+
+0: 960x1280 (no detections), 3174.3ms
+Speed: 25.5ms preprocess, 3174.3ms inference, 2.0ms postprocess per image at shape (1, 3, 960, 1280)
+
+0: 960x1280 1 Speed Limit 50, 486.3ms
+Speed: 11.9ms preprocess, 486.3ms inference, 2.0ms postprocess per image at shape (1, 3, 960, 1280)
+Processing: dataset/data\rs4.jpg
+
+0: 960x1280 (no detections), 3067.9ms
+Speed: 15.9ms preprocess, 3067.9ms inference, 2.0ms postprocess per image at shape (1, 3, 960, 1280)
+
+0: 960x1280 1 Speed Limit 100, 474.8ms
+Speed: 11.6ms preprocess, 474.8ms inference, 2.0ms postprocess per image at shape (1, 3, 960, 1280)
+Using CPU. Note: This module is much faster with a GPU.
+Processing: dataset/data\rs4h.jpg
+
+0: 960x1280 (no detections), 3079.8ms
+Speed: 13.0ms preprocess, 3079.8ms inference, 0.0ms postprocess per image at shape (1, 3, 960, 1280)
+
+0: 960x1280 1 Speed Limit 50, 485.2ms
+Speed: 9.4ms preprocess, 485.2ms inference, 0.0ms postprocess per image at shape (1, 3, 960, 1280)
+Using CPU. Note: This module is much faster with a GPU.
+Processing: dataset/data\rs5.jpg
+
+0: 960x1280 (no detections), 3140.1ms
+Speed: 16.9ms preprocess, 3140.1ms inference, 0.0ms postprocess per image at shape (1, 3, 960, 1280)
+
+0: 960x1280 1 Speed Limit 120, 489.2ms
+Speed: 10.5ms preprocess, 489.2ms inference, 0.0ms postprocess per image at shape (1, 3, 960, 1280)
+Using CPU. Note: This module is much faster with a GPU.
+Processing: dataset/data\rs6.jpg
+
+0: 960x1280 (no detections), 3002.9ms
+Speed: 21.0ms preprocess, 3002.9ms inference, 0.0ms postprocess per image at shape (1, 3, 960, 1280)
+
+0: 960x1280 (no detections), 481.6ms
+Speed: 11.7ms preprocess, 481.6ms inference, 0.0ms postprocess per image at shape (1, 3, 960, 1280)
+Processing: dataset/data\tl1.png
+
+WARNING ⚠️ imgsz=[720, 1280] must be multiple of max stride 32, updating to [736, 1280]
+0: 736x1280 2 traffic lights, 2374.9ms
+Speed: 14.0ms preprocess, 2374.9ms inference, 1.7ms postprocess per image at shape (1, 3, 736, 1280)
+
+WARNING ⚠️ imgsz=[720, 1280] must be multiple of max stride 32, updating to [736, 1280]
+0: 736x1280 1 Green Light, 417.9ms
+Speed: 6.0ms preprocess, 417.9ms inference, 1.8ms postprocess per image at shape (1, 3, 736, 1280)
+Processing: dataset/data\tl1h.png
+
+WARNING ⚠️ imgsz=[720, 1280] must be multiple of max stride 32, updating to [736, 1280]
+0: 736x1280 2 traffic lights, 2778.3ms
+Speed: 16.4ms preprocess, 2778.3ms inference, 2.0ms postprocess per image at shape (1, 3, 736, 1280)
+
+WARNING ⚠️ imgsz=[720, 1280] must be multiple of max stride 32, updating to [736, 1280]
+0: 736x1280 1 Green Light, 485.4ms
+Speed: 7.8ms preprocess, 485.4ms inference, 0.0ms postprocess per image at shape (1, 3, 736, 1280)
+Processing: dataset/data\tl2.png
+
+WARNING ⚠️ imgsz=[720, 1280] must be multiple of max stride 32, updating to [736, 1280]
+0: 736x1280 4 traffic lights, 2306.3ms
+Speed: 18.5ms preprocess, 2306.3ms inference, 2.0ms postprocess per image at shape (1, 3, 736, 1280)
+
+WARNING ⚠️ imgsz=[720, 1280] must be multiple of max stride 32, updating to [736, 1280]
+0: 736x1280 (no detections), 438.8ms
+Speed: 6.0ms preprocess, 438.8ms inference, 1.0ms postprocess per image at shape (1, 3, 736, 1280)
+Using CPU. Note: This module is much faster with a GPU.
+Processing: dataset/data\tl2h.png
+
+WARNING ⚠️ imgsz=[720, 1280] must be multiple of max stride 32, updating to [736, 1280]
+0: 736x1280 9 traffic lights, 2401.7ms
+Speed: 12.0ms preprocess, 2401.7ms inference, 2.0ms postprocess per image at shape (1, 3, 736, 1280)
+
+WARNING ⚠️ imgsz=[720, 1280] must be multiple of max stride 32, updating to [736, 1280]
+0: 736x1280 (no detections), 392.6ms
+Speed: 9.2ms preprocess, 392.6ms inference, 0.0ms postprocess per image at shape (1, 3, 736, 1280)
+Processing: dataset/data\tl3.png
+
+WARNING ⚠️ imgsz=[720, 1280] must be multiple of max stride 32, updating to [736, 1280]
+0: 736x1280 4 traffic lights, 2328.1ms
+Speed: 18.1ms preprocess, 2328.1ms inference, 10.1ms postprocess per image at shape (1, 3, 736, 1280)
+
+WARNING ⚠️ imgsz=[720, 1280] must be multiple of max stride 32, updating to [736, 1280]
+0: 736x1280 1 Green Light, 385.8ms
+Speed: 7.1ms preprocess, 385.8ms inference, 2.0ms postprocess per image at shape (1, 3, 736, 1280)
+Processing: dataset/data\tl3h.png
+
+WARNING ⚠️ imgsz=[720, 1280] must be multiple of max stride 32, updating to [736, 1280]
+0: 736x1280 1 traffic light, 2400.6ms
+Speed: 7.1ms preprocess, 2400.6ms inference, 0.0ms postprocess per image at shape (1, 3, 736, 1280)
+
+WARNING ⚠️ imgsz=[720, 1280] must be multiple of max stride 32, updating to [736, 1280]
+0: 736x1280 1 Green Light, 383.3ms
+Speed: 0.0ms preprocess, 383.3ms inference, 0.0ms postprocess per image at shape (1, 3, 736, 1280)
+Processing: dataset/data\tl4.png
+
+WARNING ⚠️ imgsz=[720, 1280] must be multiple of max stride 32, updating to [736, 1280]
+0: 736x1280 3 traffic lights, 2387.9ms
+Speed: 13.5ms preprocess, 2387.9ms inference, 1.3ms postprocess per image at shape (1, 3, 736, 1280)
+
+WARNING ⚠️ imgsz=[720, 1280] must be multiple of max stride 32, updating to [736, 1280]
+0: 736x1280 1 Red Light, 383.1ms
+Speed: 7.0ms preprocess, 383.1ms inference, 0.0ms postprocess per image at shape (1, 3, 736, 1280)
+Processing: dataset/data\tl4h.png
+
+WARNING ⚠️ imgsz=[720, 1280] must be multiple of max stride 32, updating to [736, 1280]
+0: 736x1280 1 traffic light, 2325.0ms
+Speed: 26.7ms preprocess, 2325.0ms inference, 2.0ms postprocess per image at shape (1, 3, 736, 1280)
+
+WARNING ⚠️ imgsz=[720, 1280] must be multiple of max stride 32, updating to [736, 1280]
+0: 736x1280 1 Green Light, 378.1ms
+Speed: 8.1ms preprocess, 378.1ms inference, 0.0ms postprocess per image at shape (1, 3, 736, 1280)
+Processing: dataset/data\tl5.png
+
+WARNING ⚠️ imgsz=[720, 1280] must be multiple of max stride 32, updating to [736, 1280]
+0: 736x1280 6 traffic lights, 2340.8ms
+Speed: 18.5ms preprocess, 2340.8ms inference, 2.0ms postprocess per image at shape (1, 3, 736, 1280)
+
+WARNING ⚠️ imgsz=[720, 1280] must be multiple of max stride 32, updating to [736, 1280]
+0: 736x1280 (no detections), 371.6ms
+Speed: 5.8ms preprocess, 371.6ms inference, 0.0ms postprocess per image at shape (1, 3, 736, 1280)
+Processing: dataset/data\tl6.png
+
+WARNING ⚠️ imgsz=[720, 1280] must be multiple of max stride 32, updating to [736, 1280]
+0: 736x1280 3 traffic lights, 1 stop sign, 2351.1ms
+Speed: 20.8ms preprocess, 2351.1ms inference, 2.0ms postprocess per image at shape (1, 3, 736, 1280)
+
+WARNING ⚠️ imgsz=[720, 1280] must be multiple of max stride 32, updating to [736, 1280]
+0: 736x1280 2 Green Lights, 391.0ms
+Speed: 5.8ms preprocess, 391.0ms inference, 0.0ms postprocess per image at shape (1, 3, 736, 1280)
