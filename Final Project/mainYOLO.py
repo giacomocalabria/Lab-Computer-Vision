@@ -11,7 +11,7 @@ from functions.HistEq import histeq
 
 # Load the YOLO model
 modelCOCO = YOLO("yolo11x.pt")
-modelTRAIN = YOLO("best11l50.pt")
+modelTRAIN = YOLO("bestv8n50.pt")
 
 def load_images(folder_path):
     """Load all images from a folder."""
